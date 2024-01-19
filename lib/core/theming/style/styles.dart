@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:project/core/theming/style/colors.dart';
 
 abstract class Styles {
 
@@ -12,10 +13,19 @@ abstract class Styles {
       // fontFamily: kGtSwctrafine
   );
 
-  static const titleStyle20 = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
-    // fontFamily: kGtSwctrafine
+  static  TextStyle font24BlackW700 = TextStyle(
+  fontSize: 24.sp,
+  fontWeight: FontWeight.w700
+   );
+  static  TextStyle font32BlueW700 = TextStyle(
+      fontSize: 32.sp,
+      fontWeight: FontWeight.bold,
+    color: ColorsManger.primaryColor,
+  );
+  static  TextStyle font12GryW700 = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w400,
+    color:ColorsManger.greyColor,
   );
 
   static const titleStyle20N = TextStyle(
