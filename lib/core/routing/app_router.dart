@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:project/core/routing/routers.dart';
+import 'package:project/features/login/ui/login_screen.dart';
 
 import '../../features/onboarding/ui/onboarding_screen.dart';
 // import 'package:project/features/onboard/ui/onbording_screen.dart';
@@ -16,11 +17,7 @@ class AppRouter {
         );
       case Routers.loginScreen:
         return MaterialPageRoute(
-          builder: (context) => Scaffold(
-            body: Center(
-              child: Text( 'login'),
-            ),
-          )
+          builder: (context) => const LoginScreen(),
         );
     // Add more cases for other routes as needed
       default:
