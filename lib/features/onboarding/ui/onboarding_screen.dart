@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:project/core/helpers/extenation.dart';
 import 'package:project/core/theming/style/styles.dart';
 import 'package:project/features/onboarding/ui/widgets/doc_image_and_text.dart';
 import 'package:project/features/onboarding/ui/widgets/doc_logo_name.dart';
 
-import '../../../core/custem/custom_button.dart';
 import '../../../core/routing/routers.dart';
+import '../../../core/widgets/custom_button.dart';
 
 class OnboarderScreen extends StatelessWidget {
   const OnboarderScreen({super.key});
