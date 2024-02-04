@@ -121,7 +121,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
 
     if (!passValid) {
       visibilty = true;
-      return 'Password must meet criteria';
+      return 'Password must meet criteria'; 
     }
 
     if (text.length < 8) {
