@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/features/login/ui/widgets/already_have_account.dart';
+import 'package:project/features/login/ui/widgets/email_and_password.dart';
+import 'package:project/features/login/ui/widgets/login_bloc_listener.dart';
 import 'package:project/features/login/ui/widgets/tearm_contion_text.dart';
 import 'package:project/features/login/ui/widgets/welecom_text.dart';
-import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/text_button.dart';
-import '../../../core/widgets/text_form_field.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/style/styles.dart';
+import '../data/models/login_reqest_body.dart';
+import '../logic/login_cubit.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,12 +20,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool ObscureText = true;
-  final formKey = GlobalKey<FormState>();
-
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,50 +31,31 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const WelecomText(),
                 horizontalSpace(38),
-                Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      AppTextFormField(
-                        hintText: 'Email',
-                        validator: EmailValidate,
-                      ),
-                      verticalSpace(20),
-                      AppTextFormField(
-                        hintText: 'Password',
-                        validator: EmailValidate,
-                        isObscureText: ObscureText,
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              ObscureText = !ObscureText;
-                            });
-                          },
-                          child: Icon(
-                            ObscureText ? Icons.visibility_off : Icons.visibility,
-                          ),
-                        ),
-                      ),
-                      verticalSpace(10),
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            'Forget Password?',
-                            style: Styles.font13Buleregular,
-                          )),
-                      verticalSpace(40),
-                      AppTextButton(
-                        buttonText: 'Login',
-                        textStyle: Styles.font16semiBold,
-                        onPressed: () {},
-                      ),
-                      verticalSpace(20),
-                      TearmAndCondionText(),
-                      verticalSpace(50),
-                      AlreadyHaveAccount()
-            
-                    ],
-                  ),
+                Column(
+                  children: [
+                    verticalSpace(20),
+                    const EmailAndPassword(),
+                    verticalSpace(10),
+                    Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          'Forget Password?',
+                          style: Styles.font13Buleregular,
+                        )),
+                    verticalSpace(40),
+                    AppTextButton(
+                      buttonText: 'Login',
+                      textStyle: Styles.font16semiBold,
+                      onPressed: () {
+                        validateThenDoLogin(context);
+                      },
+                    ),
+                    verticalSpace(20),
+                    const TearmAndCondionText(),
+                    verticalSpace(50),
+                    const AlreadyHaveAccount(),
+                    LoginBlocListener(),
+                  ],
                 )
               ],
             ),
@@ -88,15 +66,12 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-String? EmailValidate(text) {
-  if (text!.isEmpty || text.trim().isEmpty) {
-    return 'Pleas Enter Your Email';
+void validateThenDoLogin(BuildContext context) {
+  if(context.read<LoginCubit>().formKey.currentState!.validate()){
+    context.read<LoginCubit>().emitLoginState(LoginRequestBody(
+      email: context.read<LoginCubit>().emailController.text,
+      password: context.read<LoginCubit>().passController.text,
+    ));
   }
-  bool emailValid = RegExp(
-          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-      .hasMatch(text);
-  if (!emailValid) {
-    return 'Email not Valid';
-  }
-  return null;
 }
+
