@@ -1,7 +1,7 @@
 import 'package:project/core/networking/api_error_handeler.dart';
 import 'package:project/core/networking/api_reslt.dart';
 import 'package:project/core/networking/api_service.dart';
-import 'package:project/features/login/data/models/login_reqest_body.dart';
+import 'package:project/features/login/data/models/login_request_body.dart';
 import 'package:project/features/login/data/models/login_response.dart';
 
 class LoginRepo

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:project/features/login/ui/widgets/already_have_account.dart';
+import 'package:project/features/login/ui/widgets/dont_have_account.dart';
 import 'package:project/features/login/ui/widgets/email_and_password.dart';
 import 'package:project/features/login/ui/widgets/login_bloc_listener.dart';
 import 'package:project/features/login/ui/widgets/tearm_contion_text.dart';
@@ -9,7 +9,7 @@ import 'package:project/features/login/ui/widgets/welecom_text.dart';
 import '../../../core/widgets/text_button.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/style/styles.dart';
-import '../data/models/login_reqest_body.dart';
+import '../data/models/login_request_body.dart';
 import '../logic/login_cubit.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.h, vertical: 35.w),
+          padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 35.h),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -53,8 +53,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     verticalSpace(20),
                     const TearmAndCondionText(),
                     verticalSpace(50),
-                    const AlreadyHaveAccount(),
-                    LoginBlocListener(),
+                    const DontHaveAccount(),
+                    const LoginBlocListener(),
                   ],
                 )
               ],
@@ -68,10 +68,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
 void validateThenDoLogin(BuildContext context) {
   if(context.read<LoginCubit>().formKey.currentState!.validate()){
-    context.read<LoginCubit>().emitLoginState(LoginRequestBody(
-      email: context.read<LoginCubit>().emailController.text,
-      password: context.read<LoginCubit>().passController.text,
-    ));
+    context.read<LoginCubit>().emitLoginState();
   }
+
 }
 

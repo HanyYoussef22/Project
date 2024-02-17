@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project/core/helpers/extenation.dart';
 import 'package:project/core/theming/style/colors.dart';
 import 'package:project/core/theming/style/styles.dart';
+import 'package:project/features/login/data/models/login_response.dart';
 import 'package:project/features/login/logic/login_cubit.dart';
 import 'package:project/features/login/logic/login_state.dart';
 
@@ -30,6 +31,7 @@ class LoginBlocListener extends StatelessWidget {
           success: (loginResponse) {
             context.pop();
             context.pushNamed(Routers.homeScreen);
+
           },
           error: (error) {
             context.pop();
@@ -38,7 +40,7 @@ class LoginBlocListener extends StatelessWidget {
         );
       },
 
-      child: const SizedBox(),
+      child: const SizedBox.shrink(),
     );
   }
 

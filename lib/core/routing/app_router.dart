@@ -5,9 +5,11 @@ import 'package:project/core/di/depenaancy_injection.dart';
 import 'package:project/core/routing/routers.dart';
 import 'package:project/features/login/logic/login_cubit.dart';
 import 'package:project/features/login/ui/login_screen.dart';
+import 'package:project/features/signup_screen/logic/signup_cubit.dart';
 
 import '../../features/home/ui/home_screen.dart';
 import '../../features/onboarding/ui/onboarding_screen.dart';
+import '../../features/signup_screen/ui/signup_screen.dart';
 // import 'package:project/features/onboard/ui/onbording_screen.dart';
 
 class AppRouter {
@@ -28,6 +30,12 @@ class AppRouter {
       case Routers.homeScreen:
         return MaterialPageRoute(
           builder: (context) => const homeScreen(),
+        );
+      case Routers.signupScreen:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+              create: (context)=>getIt<SignupCubit>(),
+              child: const SignupScreen()),
         );
     // Add more cases for other routes as needed
       default:
