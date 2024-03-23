@@ -10,7 +10,7 @@ import 'package:project/features/signup_screen/ui/widgets/signup_form.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/style/styles.dart';
 import '../../../core/widgets/text_button.dart';
-import '../../login/ui/login_screen.dart';
+
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
