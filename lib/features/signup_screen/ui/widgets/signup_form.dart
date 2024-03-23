@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project/core/widgets/text_form_field.dart';
-import 'package:project/features/login/logic/login_cubit.dart';
 import 'package:project/features/login/ui/widgets/password_validdation.dart';
 import 'package:project/features/signup_screen/logic/signup_cubit.dart';
 
@@ -16,7 +15,7 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _EmailAndPasswordState extends State<SignUpForm> {
-  bool ObscureText = true;
+  bool obscureText = true;
   bool passConfirmationObscureText = true;
   bool hasLowerCase = false;
   bool hasUpperCase = false;
@@ -89,15 +88,15 @@ class _EmailAndPasswordState extends State<SignUpForm> {
             hintText: 'Password',
             validator: PassValidate,
             controller: context.read<SignupCubit>().passController,
-            isObscureText: ObscureText,
+            isObscureText: obscureText,
             suffixIcon: GestureDetector(
               onTap: () {
                 setState(() {
-                  ObscureText = !ObscureText;
+                  obscureText = !obscureText;
                 });
               },
               child: Icon(
-                ObscureText ? Icons.visibility_off : Icons.visibility,
+                obscureText ? Icons.visibility_off : Icons.visibility,
               ),
             ),
           ),

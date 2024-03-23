@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project/core/helpers/extenation.dart';
 import 'package:project/core/theming/style/styles.dart';
-import 'package:project/features/login/logic/login_state.dart';
 import 'package:project/features/signup_screen/logic/signup_cubit.dart';
 import 'package:project/features/signup_screen/logic/signup_state.dart';
 
@@ -58,7 +57,6 @@ class SignUpBlocListener extends StatelessWidget {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Continue'),
               style: TextButton.styleFrom(
                 primary: Colors.white,
                 backgroundColor: Colors.blue,
@@ -67,6 +65,7 @@ class SignUpBlocListener extends StatelessWidget {
               onPressed: () {
                 context.pushNamed(Routers.homeScreen);
               },
+              child: const Text('Continue'),
             ),
           ],
         );
