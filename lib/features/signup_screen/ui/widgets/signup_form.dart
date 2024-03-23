@@ -3,31 +3,35 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project/core/widgets/text_form_field.dart';
 import 'package:project/features/login/logic/login_cubit.dart';
 import 'package:project/features/login/ui/widgets/password_validdation.dart';
+import 'package:project/features/signup_screen/logic/signup_cubit.dart';
 
 import '../../../../core/helpers/app_regex.dart';
 import '../../../../core/helpers/spacing.dart';
 
-class EmailAndPassword extends StatefulWidget {
-  const EmailAndPassword({super.key});
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({super.key});
 
   @override
-  State<EmailAndPassword> createState() => _EmailAndPasswordState();
+  State<SignUpForm> createState() => _EmailAndPasswordState();
 }
 
-class _EmailAndPasswordState extends State<EmailAndPassword> {
+class _EmailAndPasswordState extends State<SignUpForm> {
   bool ObscureText = true;
+  bool passConfirmationObscureText = true;
   bool hasLowerCase = false;
   bool hasUpperCase = false;
   bool hasSpecialCharacters = false;
   bool hasNumber = false;
   bool hasMinLenght = false;
+  bool isPassMatch=false;
   bool visibilty = false;
   late TextEditingController passwordController;
-
+  late TextEditingController Controller;
   @override
   void initState() {
     super.initState();
-    passwordController = context.read<LoginCubit>().passController;
+    passwordController = context.read<SignupCubit>().passController;
+    Controller=context.read<SignupCubit>().passConfirmationController;
     setupPasswordControllerListenner();
   }
 
@@ -40,6 +44,9 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
             AppRegex.hasSpecialCharacter(passwordController.text);
         hasNumber = AppRegex.hasNumber(passwordController.text);
         hasMinLenght = AppRegex.hasMinLength(passwordController.text);
+       isPassMatch=AppRegex.isPasswordMatch(Controller.text, passwordController.text);
+
+
       });
     });
   }
@@ -47,19 +54,41 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: context.read<LoginCubit>().formKey,
+      key: context.read<SignupCubit>().formKey,
       child: Column(
         children: [
           AppTextFormField(
+            hintText: 'Name',
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a valid name';
+              }
+            },
+            controller: context.read<SignupCubit>().nameController,
+          ),
+          verticalSpace(20),
+          AppTextFormField(
+            hintText: 'Phone number',
+            validator: (value) {
+              if (value == null ||
+                  value.isEmpty ||
+                  !AppRegex.isPhoneNumberValid(value)) {
+                return 'Please enter a valid phone number';
+              }
+            },
+            controller: context.read<SignupCubit>().phoneController,
+          ),
+          verticalSpace(20),
+          AppTextFormField(
             hintText: 'Email',
             validator: EmailValidate,
-            controller: context.read<LoginCubit>().emailController,
+            controller: context.read<SignupCubit>().emailController,
           ),
           verticalSpace(20),
           AppTextFormField(
             hintText: 'Password',
             validator: PassValidate,
-            controller: context.read<LoginCubit>().passController,
+            controller: context.read<SignupCubit>().passController,
             isObscureText: ObscureText,
             suffixIcon: GestureDetector(
               onTap: () {
@@ -69,6 +98,23 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
               },
               child: Icon(
                 ObscureText ? Icons.visibility_off : Icons.visibility,
+              ),
+            ),
+          ),
+          verticalSpace(20),
+          AppTextFormField(
+            hintText: 'Password',
+            validator: PassValidate,
+            controller: context.read<SignupCubit>().passConfirmationController,
+            isObscureText: passConfirmationObscureText,
+            suffixIcon: GestureDetector(
+              onTap: () {
+                setState(() {
+                  passConfirmationObscureText = !passConfirmationObscureText;
+                });
+              },
+              child: Icon(
+                passConfirmationObscureText ? Icons.visibility_off : Icons.visibility,
               ),
             ),
           ),
@@ -87,11 +133,13 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
       ),
     );
   }
+
   @override
   void dispose() {
     passwordController.dispose();
     super.dispose();
   }
+
   String? EmailValidate(text) {
     if (text!.isEmpty || text.trim().isEmpty) {
       return 'Pleas Enter Your valid Email';
@@ -113,15 +161,19 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
 
     bool passValid = RegExp(
       r'^(?=.*[a-z])' // At least one lowercase letter
-      r'(?=.*[A-Z])'  // At least one uppercase letter
-      r'(?=.*\d)'     // At least one digit
-      r'(?=.*[@$!%*?&])'  // At least one special character
+      r'(?=.*[A-Z])' // At least one uppercase letter
+      r'(?=.*\d)' // At least one digit
+      r'(?=.*[@$!%*?&])' // At least one special character
       ,
     ).hasMatch(text);
 
-    if (!passValid) {
+    if (!passValid ) {
       visibilty = true;
       return 'Password must meet criteria';
+    }
+    if (isPassMatch) {
+      visibilty = true;
+      return 'Don\'t match';
     }
 
     if (text.length < 8) {
@@ -131,7 +183,4 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
 
     return null;
   }
-
-
-
 }

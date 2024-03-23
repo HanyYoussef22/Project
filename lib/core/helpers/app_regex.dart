@@ -33,4 +33,7 @@ class AppRegex {
   static bool hasMinLength(String password) {
     return RegExp(r'^(?=.{8,})').hasMatch(password);
   }
+  static bool isPasswordMatch(String password, String confirmPassword) {
+    return password == confirmPassword;
+  }
 }
