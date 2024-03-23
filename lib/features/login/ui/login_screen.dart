@@ -9,7 +9,6 @@ import 'package:project/features/login/ui/widgets/welecom_text.dart';
 import '../../../core/widgets/text_button.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/style/styles.dart';
-import '../data/models/login_request_body.dart';
 import '../logic/login_cubit.dart';
 
 class LoginScreen extends StatefulWidget {

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project/core/theming/style/colors.dart';
 
-class homeScreen extends StatelessWidget {
-  const homeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

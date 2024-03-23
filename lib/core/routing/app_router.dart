@@ -15,7 +15,7 @@ import '../../features/signup_screen/ui/signup_screen.dart';
 class AppRouter {
    Route generateRouter(RouteSettings settings) {
       //this arguments to passed in ant=y screen like this ( argument as ClassName)
-     final argument =settings.arguments;
+     //final argument =settings.arguments;
     switch (settings.name) {
       case Routers.onBordingScreen:
         return MaterialPageRoute(
@@ -29,7 +29,7 @@ class AppRouter {
         );
       case Routers.homeScreen:
         return MaterialPageRoute(
-          builder: (context) => const homeScreen(),
+          builder: (context) => const HomeScreen(),
         );
       case Routers.signupScreen:
         return MaterialPageRoute(
