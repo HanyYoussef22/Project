@@ -10,7 +10,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:project/core/routing/app_router.dart';
 import 'package:project/doc_app.dart';
 
-import 'package:project/main.dart';
 
 
 void main() {
