@@ -7,7 +7,7 @@ class CacheHelper {
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  static dynamic getData(String key) {
+  static dynamic getData(String key) { 
     return sharedPreferences!.get(key);
   }
 
